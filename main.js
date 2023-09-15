@@ -1,24 +1,45 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+// @ts-check
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+import * as three from "three";
 
-setupCounter(document.querySelector('#counter'))
+const scene = new three.Scene();
+
+const fieldOfView = 70;
+const aspect = window.innerWidth / innerHeight;
+const range = { near: 0.1, far: 1000 };
+
+const camera = new three.PerspectiveCamera(
+    fieldOfView,
+    aspect,
+    range.near,
+    range.far
+);
+
+const renderer = new three.WebGLRenderer({
+    antialias: true,
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+document.body.appendChild(renderer.domElement);
+
+camera.position.z = 5;
+
+const cube = new three.Mesh(
+    new three.BoxGeometry(1, 1, 1),
+    new three.MeshBasicMaterial({ color: 0x00ff00 })
+);
+
+scene.add(cube);
+
+const animate = function () {
+    requestAnimationFrame(animate);
+
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+};
+
+animate();
