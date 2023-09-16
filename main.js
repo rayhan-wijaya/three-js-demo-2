@@ -93,10 +93,10 @@ const generateAnimateFn = function ({ camera, renderer, assets }) {
         requestAnimationFrame(animate);
 
         assets.cube.rotation.x += 0.03;
-        assets.cube.rotation.y += 0.01;
+        assets.cube.rotation.y += 0.07;
 
         increment++;
-        assets.cube.position.y = 0.5 * Math.sin((Math.PI * increment) / 35);
+        assets.cube.position.y = 0.8 * Math.sin((Math.PI * increment) / 35);
 
         assets.plane.rotation.z += 0.03;
 
