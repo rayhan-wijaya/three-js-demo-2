@@ -29,30 +29,51 @@ const createRenderer = function () {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = three.PCFSoftShadowMap;
+
     return renderer;
 };
 
 const createAssets = function () {
     const cube = new three.Mesh(
         new three.BoxGeometry(1, 1, 1),
-        new three.MeshBasicMaterial({
+        new three.MeshStandardMaterial({
             color: new three.Color("rgb(255, 255, 255)"),
         })
     );
 
+    cube.receiveShadow = false;
+    cube.castShadow = true;
+
     const plane = new three.Mesh(
         new three.PlaneGeometry(3, 3, 32, 32),
-        new three.MeshBasicMaterial({
+        new three.MeshStandardMaterial({
             color: new three.Color("rgb(80, 80, 80)"),
         })
     );
+
+    plane.receiveShadow = true;
 
     plane.rotation.z = 180;
     plane.rotation.x = 250;
 
     plane.position.y = -1;
 
-    return { cube, plane };
+    const light = new three.DirectionalLight(
+        new three.Color("rgb(255, 255, 255)"),
+        1
+    );
+    
+    light.position.set(0, 3, 0);
+    light.castShadow = true;
+
+    light.shadow.mapSize.width = 512;
+    light.shadow.mapSize.height = 512;
+    light.shadow.camera.near = 0.5;
+    light.shadow.camera.far = 500;
+
+    return { cube, plane, light };
 };
 
 /**
