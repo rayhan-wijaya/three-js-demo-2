@@ -32,12 +32,7 @@ const createRenderer = function () {
     return renderer;
 };
 
-const main = function () {
-    const renderer = createRenderer();
-    const camera = createCamera();
-
-    document.body.appendChild(renderer.domElement);
-
+const createAssets = function () {
     const cube = new three.Mesh(
         new three.BoxGeometry(1, 1, 1),
         new three.MeshBasicMaterial({
@@ -45,13 +40,23 @@ const main = function () {
         })
     );
 
-    scene.add(cube);
+    return {cube};
+};
+
+const main = function () {
+    const renderer = createRenderer();
+    const camera = createCamera();
+
+    document.body.appendChild(renderer.domElement);
+
+    const assets = createAssets();
+    scene.add(...Object.values(assets));
 
     const animate = function () {
         requestAnimationFrame(animate);
 
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        assets.cube.rotation.x += 0.03;
+        assets.cube.rotation.y += 0.01;
 
         renderer.render(scene, camera);
     };
