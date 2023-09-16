@@ -96,7 +96,7 @@ const generateAnimateFn = function ({ camera, renderer, assets }) {
         assets.cube.rotation.y += 0.01;
 
         increment++;
-        assets.cube.position.y = Math.sin((Math.PI * increment) / 60);
+        assets.cube.position.y = 0.5 * Math.sin((Math.PI * increment) / 35);
 
         assets.plane.rotation.z += 0.03;
 
