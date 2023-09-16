@@ -64,11 +64,18 @@ const main = function () {
     const assets = createAssets();
     scene.add(...Object.values(assets));
 
+    let increment = 1;
+
     const animate = function () {
         requestAnimationFrame(animate);
 
         assets.cube.rotation.x += 0.03;
         assets.cube.rotation.y += 0.01;
+
+        increment++;
+        assets.cube.position.y = Math.sin((Math.PI * increment) / 60);
+
+        assets.plane.rotation.z += 0.03;
 
         renderer.render(scene, camera);
     };
