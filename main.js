@@ -40,7 +40,9 @@ const main = function () {
 
     const cube = new three.Mesh(
         new three.BoxGeometry(1, 1, 1),
-        new three.MeshBasicMaterial({ color: new three.Color("rgb(255, 255, 255)") })
+        new three.MeshBasicMaterial({
+            color: new three.Color("rgb(255, 255, 255)"),
+        })
     );
 
     scene.add(cube);
