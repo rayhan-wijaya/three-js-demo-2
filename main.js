@@ -55,15 +55,17 @@ const createAssets = function () {
     return { cube, plane };
 };
 
-const main = function () {
-    const renderer = createRenderer();
-    const camera = createCamera();
+/**
+ * @typedef {object} GenerateAnimateFnParameters
+ * @property {three.WebGLRenderer} renderer
+ * @property {three.Camera} camera
+ * @property {ReturnType<typeof createAssets>} assets
+ */
 
-    document.body.appendChild(renderer.domElement);
-
-    const assets = createAssets();
-    scene.add(...Object.values(assets));
-
+/**
+ * @param {GenerateAnimateFnParameters} args
+ */
+const generateAnimateFn = function ({ camera, renderer, assets }) {
     let increment = 1;
 
     const animate = function () {
@@ -80,7 +82,23 @@ const main = function () {
         renderer.render(scene, camera);
     };
 
-    animate();
+    return animate;
+};
+
+const main = function () {
+    const renderer = createRenderer();
+    const camera = createCamera();
+
+    document.body.appendChild(renderer.domElement);
+
+    const assets = createAssets();
+    scene.add(...Object.values(assets));
+
+    generateAnimateFn({
+        assets,
+        renderer,
+        camera,
+    })();
 };
 
 main();
