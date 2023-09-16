@@ -6,7 +6,7 @@ const scene = new three.Scene();
 
 const createCamera = function () {
     const fieldOfView = 70;
-    const aspect = window.innerWidth / innerHeight;
+    const aspect = window.innerWidth / window.innerHeight;
     const range = { near: 0.1, far: 1000 };
 
     const camera = new three.PerspectiveCamera(
