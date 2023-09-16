@@ -40,7 +40,19 @@ const createAssets = function () {
         })
     );
 
-    return {cube};
+    const plane = new three.Mesh(
+        new three.PlaneGeometry(3, 3, 32, 32),
+        new three.MeshBasicMaterial({
+            color: new three.Color("rgb(80, 80, 80)"),
+        })
+    );
+
+    plane.rotation.z = 180;
+    plane.rotation.x = 250;
+
+    plane.position.y = -1;
+
+    return { cube, plane };
 };
 
 const main = function () {
